@@ -42,7 +42,9 @@ class Service {
                 res.status(400).json(error.sqlMessage)
             }
             else {
-                res.status(201).json(result.insertId)
+            console.log(result)
+            const finalResult = ["id:" + result.insertId, service]
+                res.status(201).json(finalResult)
             }
         })
     }
@@ -60,7 +62,7 @@ class Service {
                 
             }
             else {
-                res.status(400).json("Registro não existe")
+                res.status(400).json("Registro não existente")
             } 
         })
        
@@ -86,7 +88,7 @@ class Service {
         const updateSql = `UPDATE atendimentos SET ? WHERE id = ?`
         conn.query(updateSql, [values, id], (error, result) => {
             if(result) {
-                res.status(200).json(result)
+                res.status(200).json({...values, id})
             }
             else {
                 console.log(error)
@@ -101,10 +103,10 @@ class Service {
             conn.query(deleteSql, id, (error, result) => {
                 if(result.affectedRows > 0){
                     
-                    res.status(200).json(result)
+                    res.status(200).json({id})
                 }
                 else {
-                    res.status(400).json(error)
+                    res.status(400).json("Registro não existente")
                 }
             })
         }
