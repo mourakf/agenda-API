@@ -19,8 +19,15 @@ module.exports = app => {
     Service.createService(services, res)
     })
 
-    app.put('/atendimentos/:id', (req,res) => {
-     
-        Service.updateService(serviceData, res)
+    app.patch('/atendimentos/:id', (req,res) => {
+        const id = parseInt(req.params.id)
+        const values = req.body
+        Service.updateService(id,values, res)
+    })
+
+    app.delete('/atendimentos/:id', (req,res) => {
+        const id = parseInt(req.params.id)
+        Service.deleteService(id, res)
+
     })
 }
