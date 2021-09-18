@@ -1,13 +1,26 @@
-
+const Service = require('../models/atendimentoModels')
 
 module.exports = app => {
-app.get('/atendimentos', (req, res) => {
-    res.send("rota get")
-})
+    app.get('/atendimentos/:id', (req, res) => {
+    const serviceId = parseInt(req.params.id)
+    
+    Service.getService(serviceId, res)
+    
+    })
 
-app.post('/atendimentos', (req,res) => {
-    console.log(req.body)
-    const body = req.body
-    res.send(`${body}`)
-})
+    app.get('/atendimentos/', (req,res) => {
+    Service.getAll(res)
+    
+    })
+
+    app.post('/atendimentos', (req,res) => {
+    const services = req.body
+    
+    Service.createService(services, res)
+    })
+
+    app.put('/atendimentos/:id', (req,res) => {
+     
+        Service.updateService(serviceData, res)
+    })
 }
