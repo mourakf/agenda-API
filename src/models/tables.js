@@ -4,6 +4,7 @@ class Tables {
         this.conn = conn
 // estabeler criação do schema
         this.createService()
+        this.createPets()
     }
     createService() {
         const createSchema = `CREATE TABLE IF NOT EXISTS Atendimentos (id int NOT NULL
@@ -14,6 +15,15 @@ class Tables {
             observacoes text, PRIMARY KEY(id))`
             
         this.conn.query(createSchema, (erro) => {
+            if(erro){
+                console.log(erro)
+            }
+        })
+    }
+    createPets() {
+        const createSchema = `CREATE TABLE IF NOT EXISTS Pets(id int NOT NULL
+        AUTO_INCREMENT,nome varchar(50), imagem varchar(200), PRIMARY KEY(id))`
+        this.conn.query(createSchema, erro => {
             if(erro){
                 console.log(erro)
             }
